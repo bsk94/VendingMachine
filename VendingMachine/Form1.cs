@@ -12,24 +12,32 @@ namespace VendingMachine
 {
     public partial class Form1 : Form
     {
+        /// <summary>
+        ///
+        /// </summary>
         private int money;
-        private List<int> totalMoney;
+
+        /// <summary>
+        ///
+        /// </summary>
+        private List<int> totalMoney = new List<int>();
+
         private int sum;
+
         private int clickCounter = 0;
+
         private int remainder;
-        private int btn;
 
         public Form1()
         {
             InitializeComponent();
-            totalMoney = new List<int>();
         }
 
         private void buttonAny_Click(object sender, EventArgs e)
         {
             Button pressedButton = (Button)sender;
             clickCounter++;
-            btn = Convert.ToInt32(pressedButton.Tag);
+            int btn = Convert.ToInt32(pressedButton.Tag);
 
             remainder = sum - btn;
 
@@ -37,21 +45,21 @@ namespace VendingMachine
             {
                 if (remainder < 0)
                 {
-                    textBoxDisplay.Text = ("Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł" + Environment.NewLine + "Remaining: " + remainder + "zł");
+                    textBoxDisplay.Text = $"Currently: {sum}{Environment.NewLine}Price: {pressedButton.Tag}zł{Environment.NewLine}Remaining: {remainder}zł";
                 }
                 else if (remainder == 0)
                 {
-                    textBoxDisplay.Text = ("Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł");
+                    textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
                 }
                 else if (remainder > 0)
                 {
-                    textBoxDisplay.Text = ("Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł");
-                    textBoxChange.Text = (remainder + "zł");
+                    textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
+                    textBoxChange.Text = remainder + "zł";
                 }
             }
             else
             {
-                textBoxDisplay.Text = ("Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł" + Environment.NewLine + "Coffee was picked.");
+                textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł" + Environment.NewLine + "Coffee was picked.";
             }
         }
 
@@ -62,7 +70,7 @@ namespace VendingMachine
             totalMoney.Add(money);
             sum = totalMoney.Sum();
 
-            textBoxDisplay.Text = ("Currently: " + sum + "zł");
+            textBoxDisplay.Text = "Currently: " + sum + "zł";
             textBoxInput.Clear();
         }
     }
