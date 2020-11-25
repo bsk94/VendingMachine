@@ -24,8 +24,6 @@ namespace VendingMachine
 
         private int sum;
 
-        private int clickCounter = 0;
-
         private int remainder;
 
         public Form1()
@@ -36,30 +34,23 @@ namespace VendingMachine
         private void buttonAny_Click(object sender, EventArgs e)
         {
             Button pressedButton = (Button)sender;
-            clickCounter++;
+
             int btn = Convert.ToInt32(pressedButton.Tag);
 
             remainder = sum - btn;
 
-            if (clickCounter == 1)
+            if (remainder < 0)
             {
-                if (remainder < 0)
-                {
-                    textBoxDisplay.Text = $"Currently: {sum}{Environment.NewLine}Price: {pressedButton.Tag}zł{Environment.NewLine}Remaining: {remainder}zł";
-                }
-                else if (remainder == 0)
-                {
-                    textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
-                }
-                else if (remainder > 0)
-                {
-                    textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
-                    textBoxChange.Text = remainder + "zł";
-                }
+                textBoxDisplay.Text = $"Currently: {sum}{Environment.NewLine}Price: {pressedButton.Tag}zł{Environment.NewLine}Remaining: {remainder * -1}zł";
             }
-            else
+            else if (remainder == 0)
             {
-                textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł" + Environment.NewLine + "Coffee was picked.";
+                textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
+            }
+            else if (remainder > 0)
+            {
+                textBoxDisplay.Text = "Currently: " + sum + Environment.NewLine + "Price: " + pressedButton.Tag + "zł";
+                textBoxChange.Text = remainder + "zł";
             }
         }
 
@@ -72,6 +63,15 @@ namespace VendingMachine
 
             textBoxDisplay.Text = "Currently: " + sum + "zł";
             textBoxInput.Clear();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            textBoxInput.Clear();
+            textBoxDisplay.Clear();
+            textBoxChange.Clear();
+            this.Controls.Clear();
+            this.InitializeComponent();
         }
     }
 }
