@@ -1,0 +1,6 @@
+Espresso;6
+Cappucino;8
+Latte;8
+Macchiato;8
+Irish;10
+Flat White;10

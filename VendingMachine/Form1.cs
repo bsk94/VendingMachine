@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,9 +27,33 @@ namespace VendingMachine
 
         private int remainder;
 
+        List<Drink> drinks = new List<Drink>();
+
+
         public Form1()
         {
             InitializeComponent();
+            //Parsing config file
+            string[] lines = File.ReadAllLines("coffemachine_config.txt");
+            foreach (string line in lines)
+            {
+                Drink currentDrink = new Drink(line);
+                drinks.Add(currentDrink);
+            }
+            // Setting buttons
+            button1.Text = drinks[0].ReturnAsButtonText();
+            button2.Text = drinks[1].ReturnAsButtonText();
+            button3.Text = drinks[2].ReturnAsButtonText();
+            button4.Text = drinks[3].ReturnAsButtonText();
+            button5.Text = drinks[4].ReturnAsButtonText();
+            button6.Text = drinks[5].ReturnAsButtonText();
+
+            button1.Tag = drinks[0].Price;
+            button2.Tag = drinks[1].Price;
+            button3.Tag = drinks[2].Price; 
+            button4.Tag = drinks[3].Price;
+            button5.Tag = drinks[4].Price;
+            button6.Tag = drinks[5].Price;
         }
 
         private void buttonAny_Click(object sender, EventArgs e)
